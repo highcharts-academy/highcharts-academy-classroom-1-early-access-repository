@@ -34,7 +34,7 @@ First, you need to clone the repository to your local machine. To do this, follo
 <img src="images/repository-url.png" alt="repository-url" width="70%">
 
 
-Now, create a folder where to host Highcharts Academy excercises, then open your terminal, go to the folder your created, and run the following command to clone the repository:
+Now, create a folder where to host Highcharts Academy exercises, then open your terminal, go to the folder you created, and run the following command to clone the repository:
 
 ```bash
 git clone <your-repository-url>
