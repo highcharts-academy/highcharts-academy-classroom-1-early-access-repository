@@ -1,0 +1,34 @@
+{
+	"name": "highcharts-academy",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test-all": "cypress run",
+		"test-01": "cypress run --spec tests/specs/highcharts-core/h01.test.cy.js",
+		"test-02": "cypress run --spec tests/specs/highcharts-core/h02.test.cy.js",
+		"test-03": "cypress run --spec tests/specs/highcharts-core/h03.test.cy.js",
+		"test-04": "cypress run --spec tests/specs/highcharts-core/h04.test.cy.js",
+		"test-05": "cypress run --spec tests/specs/highcharts-core/h05.test.cy.js",
+		"test-06": "cypress run --spec tests/specs/highcharts-core/h06.test.cy.js",
+		"test-07": "cypress run --spec tests/specs/highcharts-core/h07.test.cy.js",
+		"test-08": "cypress run --spec tests/specs/highcharts-core/h08.test.cy.js",
+		"test-09": "cypress run --spec tests/specs/highcharts-core/h09.test.cy.js",
+		"test-10": "cypress run --spec tests/specs/highcharts-core/h10.test.cy.js",
+		"test-01-a11y": "cypress run --spec tests/specs/highcharts-accessibility/a11y01.test.cy.js",
+		"test-02-a11y": "cypress run --spec tests/specs/highcharts-accessibility/a11y02.test.cy.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/highcharts-academy/repository.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/highcharts-academy/repository/issues"
+	},
+	"homepage": "https://github.com/highcharts-academy/repository#readme",
+	"devDependencies": {
+		"cypress": "^13.13.1"
+	}
+}
