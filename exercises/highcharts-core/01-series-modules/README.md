@@ -1,7 +1,7 @@
 # Exercise 01 - Series and Modules
 Level: easy ⭐
 
-In this exercise, you will learn how to:
+In this exercise, you will learn how to cearte the following:
 1. Create and manage series.
 2. Set global defaults (use `Highcharts.setOptions`).
 3. Integrate modules: include `exporting` and `accessibility` modules to enhance chart features.
