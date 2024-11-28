@@ -21,6 +21,7 @@ Your task is to modify the chart elements and default settings to exactly match 
   * Spline Series: Should have 6 points, the correct color, and symbol.
 * Documentation
   * Series Configuration: https://api.highcharts.com/highcharts/series
+  * Example https://www.highcharts.com/demo/highcharts/combo
 
 2. **Default Colors and Symbols**
 * Objective
@@ -30,6 +31,7 @@ Your task is to modify the chart elements and default settings to exactly match 
   * Symbols: Set to `square`, `triangle-down`, and `circle`.
 * Documentation:
   * `Highcharts.setOptions`: https://api.highcharts.com/class-reference/Highcharts#.setOptions
+  * Example: https://www.highcharts.com/demo/highcharts/scatter
 
 3. **Modules**
 * Objective
