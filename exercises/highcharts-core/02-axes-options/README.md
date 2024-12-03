@@ -20,8 +20,8 @@ Your task is to modify the chart elements and default settings to exactly match 
   * Subtitle: Should read "With modified default elements" and be aligned to the `left`.
   * Credits: Should be aligned to the `left` and the text should be `Highcharts website`.
 * Documentation
-  * Chart Title: https://api.highcharts.com/highcharts/title
-  * Chart Credits: https://api.highcharts.com/highcharts/credits
+  * Chart title and demo: [https://api.highcharts.com/highcharts/title](https://api.highcharts.com/highcharts/title.align)
+  * Chart credits : [https://api.highcharts.com/highcharts/credits](https://api.highcharts.com/highcharts/credits.position.align)
 
 2. **Legend and Axes**
 * Objective
@@ -32,7 +32,7 @@ Your task is to modify the chart elements and default settings to exactly match 
   * `yAxis` Title: Set to `yAxis title`.
   * `yAxis` Labels: Style labels in green (`#32CD32`) and format them to display ` k` at the end (e.g., "100 k").
 * Documentation
-  * Legend Configuration: https://api.highcharts.com/highcharts/legend
+  * Legend Configuration and demo : [https://api.highcharts.com/highcharts/legend](https://api.highcharts.com/highcharts/legend.align)
   * xAxis Title: https://api.highcharts.com/highcharts/xAxis.title
   * yAxis Title: https://api.highcharts.com/highcharts/yAxis.title
   * yAxis Labels: https://api.highcharts.com/highcharts/yAxis.labels
