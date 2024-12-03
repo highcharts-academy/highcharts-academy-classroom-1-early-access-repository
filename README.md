@@ -16,7 +16,7 @@ Remember to carefully follow the guidelines in the `README.md` files for each ta
 Before you begin, ensure you have the following software installed on your local machine:
 
 - **Node.js** (v14 or higher)
-- **npm** (comes with [Node.js](https://nodejs.org/en/download/prebuilt-installer))
+- **npm** (comes with <a href="https://nodejs.org/en/download/prebuilt-installer" target="_blank">Node.js</a>)
 - **Git**
 - **Visual Studio Code (VS Code)** or a similar code editor like **Sublime Text** or **Atom** for writing and editing your code.
 
