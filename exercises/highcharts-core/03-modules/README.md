@@ -1,7 +1,7 @@
 # Exercise 03 - Modules
 Level: easy ⭐
 
-In this exercise, you will learn how to cearte the following:
+In this exercise, you will learn how to create the following:
 1. Integrate modules: include `exporting` and `accessibility` modules to enhance chart features.
 
 
