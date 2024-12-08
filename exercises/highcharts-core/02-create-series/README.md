@@ -1,7 +1,7 @@
 # Exercise 02 - Create Series
 Level: easy ⭐
 
-In this exercise, you will learn how to cearte the following:
+In this exercise, you will learn how to create the following:
 1. Create and manage series.
 
 Your task is to modify the chart elements to exactly match the instructions below. 
