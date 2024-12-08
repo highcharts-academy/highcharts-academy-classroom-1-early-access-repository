@@ -7,33 +7,43 @@ permissions:
   checks: write
   actions: read
   contents: read
+
 jobs:
   run-autograding-tests:
     runs-on: ubuntu-latest
     if: github.actor != 'github-classroom[bot]'
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      # This is where you place your autograding tests
-      # For more information on this runner, see the documentation at: https://github.com/classroom-resources/autograding-io-grader
-      #
-      # For example, you could run a test suite like this:
-      # - name: Run tests
-      #   uses: classroom-resources/autograding-io-grader@v1
-      #     with:
-      #       test-name: Addition Test
-      #       id: addition-test
-      #       command: "./bin/add.sh"
-      #       input: 1 2
-      #       expected-output: 3
-      #       comparison-method: exact
-      #       timeout: 10
-    - name: Autograding Reporter
-      uses: classroom-resources/autograding-grading-reporter@v1
-      # For more information on this runner, see the documentation at https://github.com/classroom-resources/autograding-grading-reporter
-      # To output the results of the tests, you can use the
-      # autograding-grading-reporter action like this:
-      # env:
-      # ADDITION-TEST_RESULTS: "${{ steps.addition - test.outputs.result }}"
-      #     with:
-      #         runners: addition-test
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
+      # Optionally, if you're using a junit reporter:
+      # - name: Install JUnit reporter (if not installed)
+      #   run: npm install mocha-junit-reporter --save-dev
+
+      - name: Run Cypress tests
+        # Use a reporter that can output results as JUnit XML if you want the reporter step to consume them
+        run: npx cypress run --spec "tests/**/*.test.cy.js" \
+          --reporter mocha-junit-reporter \
+          --reporter-options mochaFile=results/junit/test-results.[hash].xml
+
+      # The autograding-grading-reporter action requires environment variables or
+      # output steps referencing test results. You’d need to configure it based on
+      # how you are generating your test results.
+      - name: Autograding Reporter
+        uses: classroom-resources/autograding-grading-reporter@v1
+        env:
+          # You would need to provide environment variables referencing your
+          # test results. For example:
+          # CYPRESS_RESULTS: <some parse or summary of the results>
+          # If your reporter supports reading JUnit XML files directly, you’d point to them here.
+          # Since the default action may not parse Cypress out-of-the-box,
+          # you might have to adjust your approach.
+          CYPRESS_RESULTS: "${{ steps.run-cypress-tests.outputs.some-result }}"
