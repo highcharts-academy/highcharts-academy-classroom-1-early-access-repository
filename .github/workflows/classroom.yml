@@ -57,3 +57,6 @@ jobs:
           # Since the default action may not parse Cypress out-of-the-box,
           # you might have to adjust your approach.
           CYPRESS_RESULTS: "${{ steps.run-cypress-tests.outputs.some-result }}"
+          SHOUT-TEST_RESULTS: "${{steps.shout-test.outputs.result}}"
+        with:
+          runners: shout-test
