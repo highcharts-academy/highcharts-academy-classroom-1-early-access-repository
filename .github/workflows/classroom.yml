@@ -24,6 +24,16 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Shout Test
+        id: shout-test
+        uses: education/autograding-io-grader@v1
+        with:
+          test-name: Shout Test
+          command: "./test/bin/shout.sh"
+          input: hello
+          expected-output: HELLO
+          comparison-method: exact
+      
       # Optionally, if you're using a junit reporter:
       # - name: Install JUnit reporter (if not installed)
       #   run: npm install mocha-junit-reporter --save-dev
