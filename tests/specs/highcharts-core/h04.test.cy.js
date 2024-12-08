@@ -1,42 +1,79 @@
-describe('04-plotLine-plotBand', () => {
-  beforeEach('passes', () => {
-		cy.visit('../../../exercises/highcharts-core/04-plotLine-plotBand/index.html');
+describe("02-axes-options-tests", () => {
+  beforeEach("passes", () => {
+		cy.visit('../../../exercises/highcharts-core/04-axes-option/index.html');
   });
 
-  it('should check if there are 3 series', () => {
-    cy.window().its('Highcharts').then(Highcharts => {
-      const chart = Highcharts.charts[0];
-      const dataMax = chart.yAxis[0].dataMax;
+  it("should check if axes are set correctly", () => {
+    cy.window()
+      .its("Highcharts")
+      .then((Highcharts) => {
+        const chart = Highcharts.charts[0];
 
-      expect(chart.series, "There should be 3 series").to.have.length(3);
-    });
+        assert.strictEqual(
+          chart.xAxis[0].userOptions.title.text,
+          "xAxis title",
+          "xAxis title should be named: xAxis title"
+        );
+
+        assert.strictEqual(
+          chart.yAxis[0].userOptions.title.text,
+          "yAxis title",
+          "yAxis title should be named: yAxis title"
+        );
+        assert.strictEqual(
+          chart.yAxis[0].userOptions.labels.style.color,
+          "#32CD32",
+          "yAxis labels color should be set to green"
+        );
+        assert.strictEqual(
+          chart.yAxis[0].userOptions.labels.format,
+          "{text} k",
+          'yAxis labels should have "k" at the end'
+        );
+      });
   });
 
-  it('should check if plotLine is added correctly proper max', () => {
-    cy.window().its('Highcharts').then(Highcharts => {
-      const chart = Highcharts.charts[0];
+  it("should check minor chart elements settings", () => {
+    cy.window()
+      .its("Highcharts")
+      .then((Highcharts) => {
+        const chartOptions = Highcharts.charts[0].userOptions;
 
-      expect(chart.yAxis[0].options.plotLines).to.exist;
+        expect(
+          chartOptions.title.text,
+          'The chart title should be set to "Highcharts chart"'
+        ).to.equal("Highcharts chart");
+        expect(
+          chartOptions.title.align,
+          "The chart title should be aligned to the left"
+        ).to.equal("left");
 
-      const plotLine = chart.yAxis[0].options.plotLines[0];
+        expect(
+          chartOptions.subtitle.text,
+          'The subtitle should be set to "With modified default elements"'
+        ).to.equal("With modified default elements");
+        expect(
+          chartOptions.subtitle.align,
+          "The subtitle should be aligned to the left"
+        ).to.equal("left");
 
-      expect(plotLine.dashStyle.toLowerCase()).to.equal('dash');
-      cy.get('#container svg path.highcharts-plot-line').should('exist')
-        .and('have.attr', 'stroke-dasharray');
-    });
-  });
+        expect(
+          chartOptions.legend.align,
+          "The legend should be aligned to the left"
+        ).to.equal("left");
+        expect(
+          chartOptions.legend.verticalAlign,
+          "The legend should be vertically aligned to the top"
+        ).to.equal("top");
 
-  it('should add plotBand with correct range', () => {
-    cy.window().its('Highcharts').then(Highcharts => {
-      const chart = Highcharts.charts[0];
-
-      expect(chart.yAxis[0].options.plotBands).to.exist;
-
-      const plotBand = chart.yAxis[0].options.plotBands[0];
-
-      expect(plotBand.from).to.be.closeTo(chart.yAxis[0].dataMax * 0.5, 0.1);
-      expect(plotBand.to).to.be.closeTo(chart.yAxis[0].dataMax * 1.2, 0.1);
-      cy.get('#container svg path.highcharts-plot-band').should('exist')
-    });
+        expect(
+          chartOptions.credits.text,
+          'The credits text should be set to "Highcharts website"'
+        ).to.equal("Highcharts website");
+        expect(
+          chartOptions.credits.position.align,
+          "The credits should be aligned to the left"
+        ).to.equal("left");
+      });
   });
 });

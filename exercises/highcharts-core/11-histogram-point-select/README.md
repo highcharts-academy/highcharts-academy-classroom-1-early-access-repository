@@ -1,4 +1,4 @@
-# Exercise 09 - Histogram Point Select
+# Exercise 11 - Histogram Point Select
 Level: advanced ⭐⭐⭐
 
 In this exercise, you will learn how to:

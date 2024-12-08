@@ -1,4 +1,4 @@
-# Exercise 07 - Separate Axes
+# Exercise 09 - Separate Axes
 Level: advanced ⭐⭐⭐
 
 In this exercise, you will learn how to:

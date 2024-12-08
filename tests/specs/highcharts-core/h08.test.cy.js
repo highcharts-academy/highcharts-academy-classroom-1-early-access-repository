@@ -1,55 +1,31 @@
-describe('template spec', () => {
-  const p1 = [500, 200]; // click position
-  const p2 = [300, 250]; // mousemove position
-
-  beforeEach(() => {
-    cy.viewport(800, 600);
-		cy.visit('../../../exercises/highcharts-core/08-click-mousemove-cursor/index.html');
+describe('01-simple-column', () => {
+  beforeEach('passes', () => {
+		cy.visit('../../../exercises/highcharts-core/08-boosted-chart/index.html');
   });
 
-  it('chart should exist', () => {
-    cy.get('.highcharts-container').should('be.visible');
-  });
-
-  it('the `mouse-circle` should follow the mouse', () => {
-    cy.get('.highcharts-container').trigger('mousemove', ...p2);
-
-    cy.get('.mouse-circle').should('be.visible')
-      .should('have.attr', 'cx', `${p2[0]}`)
-      .should('have.attr', 'cy', `${p2[1]}`);
-  });
-
-  it('the `chart-circle` and `chart-text` should be created on click', () => {
-    cy.get('.highcharts-container').trigger('click', ...p1);
-
-    cy.get('.chart-circle').should('be.visible')
-    .should('have.attr', 'cx', `${p1[0]}`)
-    .should('have.attr', 'cy', `${p1[1]}`);
-
-    cy.get('.chart-text').should('be.visible');
-  });
-
-  it('position of the `chart-circle` and `chart-text` should be correct after window resize', () => {
-    cy.get('.highcharts-container').trigger('click', ...p1);
-
+  it('should check if there is a small scatter series with fewer than 10,000 points and not boosted', () => {
     cy.window().its('Highcharts').then(Highcharts => {
       const chart = Highcharts.charts[0];
-      const xAxis = chart.xAxis[0];
-      const yAxis = chart.yAxis[0];
+      const scatterSeries = chart.series.filter(series => series.type === 'scatter');
 
-      const x = xAxis.toValue(p1[0]);
-      const y = yAxis.toValue(p1[1]);
+      expect(scatterSeries, "There should be one scatter series").to.have.length(1);
 
-      cy.get('.chart-text').should('contain', `x: ${x.toFixed(2)}, y: ${y.toFixed(2)}`);
+      const smallSeries = scatterSeries.find(series => series.data.length < 10000);
+      expect(smallSeries, "One scatter series should have fewer than 10,000 points").to.exist;
+      expect(smallSeries.boosted, "This series should not be in boost mode").to.be.false;
+    });
+  });
 
-      cy.viewport(400, 500);
+  it('should check if there is a large scatter series with at least 10,000 points and boosted', () => {
+    cy.window().its('Highcharts').then(Highcharts => {
+      const chart = Highcharts.charts[0];
+      const columnSeries = chart.series.filter(series => series.type === 'column');
 
-      const pX = xAxis.toPixels(x);
-      const pY = yAxis.toPixels(y);
+      expect(columnSeries, "There should be one column series").to.have.length(1);
 
-      cy.get('.chart-circle')
-        .should('have.attr', 'cx', `${pX}`,)
-        .should('have.attr', 'cy', `${pY}`);
+      const largeSeries = columnSeries.find(series => series.xData.length >= 10000);
+      expect(largeSeries, "One scatter series should have at least 10,000 points").to.exist;
+      expect(largeSeries.boosted, "This series should be in boost mode").to.be.true;
     });
   });
 });

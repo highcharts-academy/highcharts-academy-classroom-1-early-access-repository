@@ -1,94 +1,151 @@
-describe('template spec', () => {
-  const screenWidth = 800;
-  const sides = ['left', 'right'];
-
+describe("Highcharts Tests", () => {
   beforeEach(() => {
-    cy.viewport(screenWidth, 600);
-		cy.visit('../../../exercises/highcharts-core/07-separate-axes/index.html');
+		cy.visit('../../../exercises/highcharts-core/07-minimal-charts/index.html');
   });
 
-  it('Horizontal axes should be initialized and positioned correctly', () => {
-    cy.window().its('Highcharts').then(Highcharts => {
-      const chart = Highcharts.charts[0];
-      expect(chart, 'chart should be initialized').to.exist;
+  it("should render the spline chart correctly", () => {
+    cy.window()
+      .its("Highcharts")
+      .then((Highcharts) => {
+        const matchedChart = Highcharts.charts.find(
+          (chart) =>
+            chart.type === "spline" || chart.series[0].type === "spline"
+        );
 
-      let leftAxis, rightAxis;
-      chart.yAxis.forEach((yAxis, i) => {
-        expect(yAxis, `yAxis ${i}: min should be 0`).to.have.property('min', 0);
-        expect(yAxis, `yAxis ${i}: max should be 100`).to.have.property('max', 100);
-        expect(yAxis.len, `yAxis ${i}: width should be less than a half of the viewport width`).to.lessThan(screenWidth / 2);
-
-        if (yAxis.reversed) {
-          leftAxis = yAxis;
-        } else {
-          rightAxis = yAxis;
-        }
+        expect(matchedChart, "Spline chart should exist").to.exist;
+        expect(
+          matchedChart.series[0].data.length,
+          "Spline chart should have 6 data points"
+        ).to.equal(6);
       });
-
-      expect(leftAxis, 'left axis should be initialized').to.exist;
-      expect(rightAxis, 'right axis should be initialized').to.exist;
-      expect(leftAxis.left, 'left axis should be positioned on the left').to.be.equal(chart.plotLeft);
-      expect(rightAxis.left, 'right axis should be positioned on the right').to.be.greaterThan(chart.plotWidth / 2);
-    });
   });
 
-  it('Vertical axes should be hidden', () => {
-    cy.window().its('Highcharts').then(Highcharts => {
-      const chart = Highcharts.charts[0];
-      expect(chart, 'chart should be initialized').to.exist;
+  it("should render the areaspline chart correctly", () => {
+    cy.window()
+      .its("Highcharts")
+      .then((Highcharts) => {
+        const matchedChart = Highcharts.charts.find(
+          (chart) =>
+            chart.type === "areaspline" || chart.series[0].type === "areaspline"
+        );
 
-      expect(chart.xAxis[0].visible, 'xAxis should be hidden').to.be.false;
-    });
+        expect(matchedChart, "Areaspline chart should exist").to.exist;
+        expect(
+          matchedChart.series[0].data.length,
+          "Areaspline chart should have 6 data points"
+        ).to.equal(6);
+      });
   });
 
-  it('Series should be set correctly', () => {
-    cy.window().its('Highcharts').then(Highcharts => {
-      const chart = Highcharts.charts[0];
+  it("should render the column chart correctly", () => {
+    cy.window()
+      .its("Highcharts")
+      .then((Highcharts) => {
+        const matchedChart = Highcharts.charts.find(
+          (chart) =>
+            chart.type === "column" || chart.series[0].type === "column"
+        );
+        const series = matchedChart.series[0];
 
-      const realSeries = {};
-      const mockSeries = {};
-      for (const s of chart.series) {
-        const side = s.yAxis.reversed ? 'left' : 'right';
-        if (s.options.enableMouseTracking) {
-          realSeries[side] = s;
-        } else {
-          mockSeries[side] = s;
-        }
+        expect(matchedChart, "Column chart should exist").to.exist;
+        expect(
+          matchedChart.series[0].data.length,
+          "Column chart should have 6 data points"
+        ).to.equal(6);
+        assert.strictEqual(
+          series.points[2].y === 0 ||
+            series.points[2].y === undefined ||
+            series.points[2].y === null,
+          true,
+          "The third point of the column series should be equal to 0, undefined, or null"
+        );
+      });
+  });
 
-        expect(s.data.length, 'Every series should have 5 points').to.be.equal(5);
+  it("should render the pie chart correctly", () => {
+    cy.window()
+      .its("Highcharts")
+      .then((Highcharts) => {
+        const matchedChart = Highcharts.charts.find(
+          (chart) => chart.type === "pie" || chart.series[0].type === "pie"
+        );
+
+        expect(matchedChart, "Pie chart should exist").to.exist;
+        expect(
+          matchedChart.series[0].data.length,
+          "Pie chart should have 3 data points"
+        ).to.equal(3);
+      });
+  });
+
+  it("should set global Highcharts options correctly", () => {
+    cy.window().then((win) => {
+      expect(
+        win.Highcharts.defaultOptions.title.text,
+        "Global title text should be empty"
+      ).to.equal("");
+      expect(
+        win.Highcharts.defaultOptions.legend.enabled,
+        "Global legend should be disabled"
+      ).to.equal(false);
+      expect(
+        win.Highcharts.defaultOptions.credits.enabled,
+        "Global credits should be disabled"
+      ).to.equal(false);
+
+      if (win.Highcharts.defaultOptions.yAxis.visible === false) {
+        expect(
+          win.Highcharts.defaultOptions.yAxis.visible,
+          "Global yAxis visible should be hidden"
+        ).to.equal(false);
+      } else {
+        expect(
+          win.Highcharts.defaultOptions.yAxis.gridLineWidth,
+          "Global yAxis gridLineWidth should be 0"
+        ).to.equal(0);
+        expect(
+          win.Highcharts.defaultOptions.yAxis.title.text,
+          "Global yAxis title text should be empty"
+        ).to.equal("");
+        expect(
+          win.Highcharts.defaultOptions.yAxis.labels.enabled,
+          "Global yAxis labels should be disabled"
+        ).to.equal(false);
       }
 
-      for (const sideId in sides) {
-        const side = sides[sideId];
-        const oppositeSide = sides[1 - sideId];
-        const mock = mockSeries[side];
-        const real = realSeries[side];
-
-        expect(mock, `The ${side} mock (non-hoverable) series exists`).to.exist;
-        expect(mock.visible, `The ${side} mock series is visible`).to.be.true;
-
-        expect(real, `The ${side} real (hoverable) series exists`).to.exist;
-        expect(real.visible, `The ${side} real series is visible`).to.be.true;
-        
-        const mockZIndex = mock.options.zIndex ?? 0;
-        const realZIndex = real.options.zIndex ?? 0;
-        if (mockZIndex === realZIndex) {
-          expect(mock.index, `The ${side} mock series should have a lower index than the real series`).to.be.lessThan(real.index);
-        } else {
-          expect(realZIndex, `The ${side} real series should have a higher z-index than the mock series`).to.be.greaterThan(mockZIndex);
-        }
-
-        expect(mock.yData, `Every point in the ${side} mock series should be 100`).to.deep.equal([100, 100, 100, 100, 100]);
-        
-        const grouping = (mock.options.grouping ?? true) && (real.options.grouping ?? true);
-        expect(grouping, `The ${side} series should have grouping disabled`).to.be.false;
-
-        expect(mock.options.dataLabels.enabled ?? false, `The ${side} mock series should have data labels disabled`).to.be.false;
-        expect(real.options.dataLabels.enabled, `The ${side} real series should have data labels enabled`).to.be.true;
-
-        expect(real.options.dataLabels.inside, `The ${side} real series should have data labels inside the bars`).to.be.true;
-        expect(real.options.dataLabels.align, `The ${side} real series should have data labels aligned to the ${oppositeSide}`).to.be.equal(oppositeSide);
+      if (win.Highcharts.defaultOptions.xAxis.visible === false) {
+        expect(
+          win.Highcharts.defaultOptions.xAxis.visible,
+          "Global xAxis visible should be hidden"
+        ).to.equal(false);
+      } else {
+        expect(
+          win.Highcharts.defaultOptions.xAxis.lineWidth,
+          "Global xAxis lineWidth should be 0"
+        ).to.equal(0);
+        expect(
+          win.Highcharts.defaultOptions.xAxis.tickLength,
+          "Global xAxis tickLength should be 0"
+        ).to.equal(0);
+        expect(
+          win.Highcharts.defaultOptions.xAxis.labels.enabled,
+          "Global xAxis labels should be disabled"
+        ).to.equal(false);
       }
+
+      expect(
+        win.Highcharts.defaultOptions.tooltip.outside,
+        "Global tooltip should be outside"
+      ).to.equal(true);
+
+      expect(
+        win.Highcharts.defaultOptions.plotOptions.series.marker.enabled,
+        "Global series marker should be disabled"
+      ).to.equal(false);
+      expect(
+        win.Highcharts.defaultOptions.plotOptions.series.dataLabels.enabled,
+        "Global series dataLabels should be disabled"
+      ).to.equal(false);
     });
   });
 });

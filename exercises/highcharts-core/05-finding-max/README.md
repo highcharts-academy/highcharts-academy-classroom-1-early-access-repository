@@ -1,4 +1,4 @@
-# Exercise 03 - Finding Max
+# Exercise 05 - Finding Max
 Level: intermediate ⭐⭐
 
 In this exercise, you will learn how to:

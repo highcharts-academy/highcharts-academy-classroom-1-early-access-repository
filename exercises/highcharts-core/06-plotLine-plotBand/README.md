@@ -1,4 +1,4 @@
-# Exercise 04 - Adding PlotLine and PlotBand
+# Exercise 06 - Adding PlotLine and PlotBand
 Level: intermediate ⭐⭐
 
 In this exercise, you will learn how to:

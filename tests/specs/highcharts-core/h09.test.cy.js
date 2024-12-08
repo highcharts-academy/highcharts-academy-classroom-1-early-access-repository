@@ -1,81 +1,94 @@
 describe('template spec', () => {
+  const screenWidth = 800;
+  const sides = ['left', 'right'];
+
   beforeEach(() => {
-		cy.visit('../../../exercises/highcharts-core/09-histogram-point-select/index.html');
+    cy.viewport(screenWidth, 600);
+		cy.visit('../../../exercises/highcharts-core/09-separate-axes/index.html');
   });
 
-  it('should check if there are two x-axes and two y-axes', () => {
+  it('Horizontal axes should be initialized and positioned correctly', () => {
     cy.window().its('Highcharts').then(Highcharts => {
       const chart = Highcharts.charts[0];
+      expect(chart, 'chart should be initialized').to.exist;
 
-      expect(chart.xAxis, "There should be two x-axes").to.have.length(2);
-      expect(chart.yAxis, "There should be two y-axes").to.have.length(2);
-    });
-  });
+      let leftAxis, rightAxis;
+      chart.yAxis.forEach((yAxis, i) => {
+        expect(yAxis, `yAxis ${i}: min should be 0`).to.have.property('min', 0);
+        expect(yAxis, `yAxis ${i}: max should be 100`).to.have.property('max', 100);
+        expect(yAxis.len, `yAxis ${i}: width should be less than a half of the viewport width`).to.lessThan(screenWidth / 2);
 
-  it('should check if the axes have the correct titles and positions', () => {
-    cy.window().its('Highcharts').then(Highcharts => {
-      const chart = Highcharts.charts[0];
-
-      for (const axis of chart.axes) {
-        if (axis.opposite) {
-          expect(axis.options.title.text, `The opposite ${axis.coll} should have the title 'Histogram'`).to.equal('Histogram');
+        if (yAxis.reversed) {
+          leftAxis = yAxis;
         } else {
-          expect(axis.options.title.text, `The normal ${axis.coll} should have the title 'Values'`).to.equal('Values');
+          rightAxis = yAxis;
         }
-      }
+      });
+
+      expect(leftAxis, 'left axis should be initialized').to.exist;
+      expect(rightAxis, 'right axis should be initialized').to.exist;
+      expect(leftAxis.left, 'left axis should be positioned on the left').to.be.equal(chart.plotLeft);
+      expect(rightAxis.left, 'right axis should be positioned on the right').to.be.greaterThan(chart.plotWidth / 2);
     });
   });
 
-  it('should check if there is a scatter series joined to the histogram series', () => {
+  it('Vertical axes should be hidden', () => {
     cy.window().its('Highcharts').then(Highcharts => {
       const chart = Highcharts.charts[0];
-      const histogramSeries = chart.series.filter(series => series.type === 'histogram');
-      const scatterSeries = chart.series.filter(series => series.type === 'scatter');
+      expect(chart, 'chart should be initialized').to.exist;
 
-      expect(histogramSeries, "There should be one histogram series").to.have.length(1);
-      expect(scatterSeries, "There should be one scatter series").to.have.length(1);
-
-      expect(histogramSeries[0].baseSeries, "The histogram series should be joined to the scatter series").to.equal(scatterSeries[0]);
+      expect(chart.xAxis[0].visible, 'xAxis should be hidden').to.be.false;
     });
   });
 
-  it('should check if the histogram series is selectable', () => {
+  it('Series should be set correctly', () => {
     cy.window().its('Highcharts').then(Highcharts => {
       const chart = Highcharts.charts[0];
-      const histogramSeries = chart.series.find(series => series.type === 'histogram');
 
-      expect(histogramSeries.options.allowPointSelect, "The histogram series should be selectable").to.be.true;
-    });
-  });
-
-  it('should check if the inactive state is turned off for all the series', () => {
-    cy.window().its('Highcharts').then(Highcharts => {
-      const chart = Highcharts.charts[0];
-      let allInactiveStatesDisabled = true;
-      for (const series of chart.series) {
-        if (series.options.states?.inactive?.enabled !== false) {
-          allInactiveStatesDisabled = false;
-          break;
+      const realSeries = {};
+      const mockSeries = {};
+      for (const s of chart.series) {
+        const side = s.yAxis.reversed ? 'left' : 'right';
+        if (s.options.enableMouseTracking) {
+          realSeries[side] = s;
+        } else {
+          mockSeries[side] = s;
         }
+
+        expect(s.data.length, 'Every series should have 5 points').to.be.equal(5);
       }
 
-      expect(allInactiveStatesDisabled, "All the series should have the inactive state turned off").to.be.true;
+      for (const sideId in sides) {
+        const side = sides[sideId];
+        const oppositeSide = sides[1 - sideId];
+        const mock = mockSeries[side];
+        const real = realSeries[side];
+
+        expect(mock, `The ${side} mock (non-hoverable) series exists`).to.exist;
+        expect(mock.visible, `The ${side} mock series is visible`).to.be.true;
+
+        expect(real, `The ${side} real (hoverable) series exists`).to.exist;
+        expect(real.visible, `The ${side} real series is visible`).to.be.true;
+        
+        const mockZIndex = mock.options.zIndex ?? 0;
+        const realZIndex = real.options.zIndex ?? 0;
+        if (mockZIndex === realZIndex) {
+          expect(mock.index, `The ${side} mock series should have a lower index than the real series`).to.be.lessThan(real.index);
+        } else {
+          expect(realZIndex, `The ${side} real series should have a higher z-index than the mock series`).to.be.greaterThan(mockZIndex);
+        }
+
+        expect(mock.yData, `Every point in the ${side} mock series should be 100`).to.deep.equal([100, 100, 100, 100, 100]);
+        
+        const grouping = (mock.options.grouping ?? true) && (real.options.grouping ?? true);
+        expect(grouping, `The ${side} series should have grouping disabled`).to.be.false;
+
+        expect(mock.options.dataLabels.enabled ?? false, `The ${side} mock series should have data labels disabled`).to.be.false;
+        expect(real.options.dataLabels.enabled, `The ${side} real series should have data labels enabled`).to.be.true;
+
+        expect(real.options.dataLabels.inside, `The ${side} real series should have data labels inside the bars`).to.be.true;
+        expect(real.options.dataLabels.align, `The ${side} real series should have data labels aligned to the ${oppositeSide}`).to.be.equal(oppositeSide);
+      }
     });
-  });
-
-  it('should check if clicking on the histogram column selects the proper points', () => {
-    const pointLengths = [2, 4, 7, 3, 5, 6];
-    for (let i = 0; i < 6; i++) {
-      cy.get('.highcharts-histogram-series .highcharts-point').eq(i).click();
-      cy.get('.highcharts-scatter-series .highcharts-point-select')
-        .should('have.length', pointLengths[i])
-        .then(points => {
-          for (const { point } of points) {
-            expect(point).to.have.property('y', i + 1);
-          }
-        });
-    }
-
-    cy.get('.highcharts-histogram-series .highcharts-point-select').should('have.length', 1);
   });
 });
