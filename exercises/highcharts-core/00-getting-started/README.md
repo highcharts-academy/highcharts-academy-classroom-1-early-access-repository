@@ -58,7 +58,7 @@ Learn to create a **column chart** and add an **annotation**.
    - Open the `index.html` file in your browser to view the result.  
    - Run the command:  
      ```bash
-     npm run test-101
+     npm run test-00
      ```
    - If successful, you will see this output:  
      *(Include a screenshot of the test output)*.
