@@ -5,6 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"test-all": "cypress run",
+		"test-00": "cypress run --spec tests/specs/highcharts-core/h00.test.cy.js",
 		"test-01": "cypress run --spec tests/specs/highcharts-core/h01.test.cy.js",
 		"test-02": "cypress run --spec tests/specs/highcharts-core/h02.test.cy.js",
 		"test-03": "cypress run --spec tests/specs/highcharts-core/h03.test.cy.js",
