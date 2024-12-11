@@ -61,7 +61,7 @@ Learn to create a **column chart** and add an **annotation**.
      npm run test-00
      ```
    - If successful, you will see this output:  
-    <img src="../../../images/00-getting-started-image-1.png" alt="00-getting-started-image-1" width="70%">
+    <img src="image/00-getting-started-image-1.png" alt="00-getting-started-image-1" width="70%">
 
 ---
 
@@ -112,11 +112,11 @@ Learn to create a **column chart** and add an **annotation**.
      npm run test-00
      ```
    - If successful, you will see this output:
-    <img src="../../../images/00-getting-started-image-2.png" alt="00-getting-started-image-2" width="70%">
+    <img src="image/00-getting-started-image-2.png" alt="00-getting-started-image-2" width="70%">
     
    - Go to the browser where you opened index.html, refresh the page, and you should see:
 
-   <img src="../../../images/00-getting-started-image-solution.png" alt="00-getting-started-image-solution" width="70%">
+   <img src="image/00-getting-started-image-solution.png" alt="00-getting-started-image-solution" width="70%">
 
 
 ---
