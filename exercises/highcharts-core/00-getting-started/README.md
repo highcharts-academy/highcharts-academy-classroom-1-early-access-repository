@@ -1,4 +1,4 @@
-# Exercise 101 - Getting Started with Highcharts Academy
+# Exercise 00 - Getting Started with Highcharts Academy
 
 **Level:** Beginner ⭐
 
@@ -61,7 +61,7 @@ Learn to create a **column chart** and add an **annotation**.
      npm run test-00
      ```
    - If successful, you will see this output:  
-     *(Include a screenshot of the test output)*.
+    <img src="../../../images/00-getting-started-image-1.png" alt="00-getting-started-image-1" width="70%">
 
 ---
 
@@ -95,19 +95,35 @@ Learn to create a **column chart** and add an **annotation**.
                      xAxis: 0,
                      yAxis: 0
                  },
-                 text: 'Peak Value'
+                 text: 'Middle value'
              }]
          }]
      });
      ```
-   - Save your work.  
+   - Save your work.
+   - Go to `index.html`, and paste the annotation module
+   ```html
+   <script src="https://code.highcharts.com/modules/annotations.js"></script>
+   ```
+
    - Open `index.html` in your browser to see the annotation.
+   - Run the command:  
+     ```bash
+     npm run test-00
+     ```
+   - If successful, you will see this output:
+    <img src="../../../images/00-getting-started-image-2.png" alt="00-getting-started-image-2" width="70%">
+    
+   - Go to the browser where you opened index.html, refresh the page, and you should see:
+
+   <img src="../../../images/00-getting-started-image-solution.png" alt="00-getting-started-image-solution" width="70%">
+
 
 ---
 
 ## Checklist Before Submission
 - Ensure your column chart is visible and matches the example provided.  
 - The annotation is correctly added to the third point.  
-- Run `npm run test-101` to verify your solution.
+- Run `npm run test-00` to verify your solution.
 
 **Congratulations! You've completed your first exercise in Highcharts Academy! 🎉**
