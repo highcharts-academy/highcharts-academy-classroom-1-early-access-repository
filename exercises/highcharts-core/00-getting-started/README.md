@@ -73,7 +73,7 @@ Learn to create a **column chart** and add an **annotation**.
      - [Annotation Demo](https://www.highcharts.com/demo/annotations)
 
 2. **Add an annotation to the third point**:
-   - Example: Add a label above the third point with the text "Peak Value".  
+   - Example: Add a label above the third point with the text "Middle point".  
    - Documentation:  
      - [Add Annotation to a Point](https://api.highcharts.com/highcharts/annotations.labelOptions)
 
@@ -101,7 +101,7 @@ Learn to create a **column chart** and add an **annotation**.
      });
      ```
    - Save your work.
-   - Go to `index.html`, and paste the annotation module
+   - Go to `index.html`, and add the annotation module
    ```html
    <script src="https://code.highcharts.com/modules/annotations.js"></script>
    ```
