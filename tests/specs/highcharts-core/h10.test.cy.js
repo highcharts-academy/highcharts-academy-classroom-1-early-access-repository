@@ -1,125 +1,55 @@
-describe("Line Chart Exercise", () => {
-  beforeEach("passes", () => {
-		cy.visit('../../../exercises/highcharts-core/10-visible-points-zoom/index.html');
+describe('template spec', () => {
+  const p1 = [500, 200]; // click position
+  const p2 = [300, 250]; // mousemove position
+
+  beforeEach(() => {
+    cy.viewport(800, 600);
+		cy.visit('../../../exercises/highcharts-core/10-click-mousemove-cursor/index.html');
   });
 
-  it('should check if the chart has 100 random integer values and "xy" zoom', () => {
-    cy.window()
-      .its("Highcharts")
-      .then((Highcharts) => {
-        const chart = Highcharts.charts[0];
-        const series = chart.series[0];
-
-        expect(series.data.length, "Series should have 100 points").to.equal(
-          100
-        );
-        expect(
-          chart.options.chart.zoomType,
-          "Zoom type should be 'xy'"
-        ).to.equal("xy");
-      });
+  it('chart should exist', () => {
+    cy.get('.highcharts-container').should('be.visible');
   });
 
-  it("should check if the visible points label updates correctly on zoom", () => {
-    cy.window()
-      .its("Highcharts")
-      .then((Highcharts) => {
-        const chart = Highcharts.charts[0];
+  it('the `mouse-circle` should follow the mouse', () => {
+    cy.get('.highcharts-container').trigger('mousemove', ...p2);
 
-        cy.get("text")
-          .contains("Visible points:")
-          .should("have.text", `Visible points: ${100}`)
-          .then(() => {
-            chart.xAxis[0].setExtremes(45, 50);
-            cy.get("text")
-              .contains("Visible points:")
-              .should(
-                "have.text",
-                `Visible points: ${
-                  chart.series[0].points.filter((point) => point.isInside)
-                    .length
-                }`
-              );
-          });
-      });
+    cy.get('.mouse-circle').should('be.visible')
+      .should('have.attr', 'cx', `${p2[0]}`)
+      .should('have.attr', 'cy', `${p2[1]}`);
   });
 
-  it("should check if highest value points have red labels and red dots on xAxis", () => {
-    cy.window()
-      .its("Highcharts")
-      .then((Highcharts) => {
-        const chart = Highcharts.charts[0];
-        const series = chart.series[0];
-        const dataMax = Math.max(...series.yData);
-        const maxPoints = series.points.filter((point) => point.y === dataMax);
+  it('the `chart-circle` and `chart-text` should be created on click', () => {
+    cy.get('.highcharts-container').trigger('click', ...p1);
 
-        cy.get(".highcharts-root")
-          .find("text.max-point-label")
-          .should("have.length", maxPoints.length)
-          .each(($el) => {
-            cy.wrap($el)
-              .should("have.text", dataMax)
-              .then(($element) => {
-                const rect = $element[0].getBoundingClientRect();
-                const x = rect.x;
-                const y = rect.y;
+    cy.get('.chart-circle').should('be.visible')
+    .should('have.attr', 'cx', `${p1[0]}`)
+    .should('have.attr', 'cy', `${p1[1]}`);
 
-                let matchFound = false;
-                for (const p of maxPoints) {
-                  if (
-                    Math.abs(p.plotX + p.series.chart.plotLeft - x) < 30 &&
-                    Math.abs(p.plotY + p.series.chart.plotTop - y) < 30
-                  ) {
-                    assert.closeTo(
-                      p.plotX + p.series.chart.plotLeft,
-                      x,
-                      30,
-                      "The x-coordinate of the custom max point label should be close to the max point x-coordinate."
-                    );
-                    assert.closeTo(
-                      p.plotY + p.series.chart.plotTop,
-                      y,
-                      30,
-                      "The y-coordinate of the custom max point label should be close to the max point y-coordinate."
-                    );
-                    matchFound = true;
-                    break;
-                  }
-                }
+    cy.get('.chart-text').should('be.visible');
+  });
 
-                if (!matchFound) {
-                  assert.fail("No matching points found for the element.");
-                }
-              });
-          });
+  it('position of the `chart-circle` and `chart-text` should be correct after window resize', () => {
+    cy.get('.highcharts-container').trigger('click', ...p1);
 
-        cy.get(".highcharts-root")
-          .find("circle.x-axis-point")
-          .should("have.length", maxPoints.length)
-          .each(($el) => {
-            cy.wrap($el).then(($element) => {
-              const rect = $element[0].getBoundingClientRect();
-              const x = rect.x;
+    cy.window().its('Highcharts').then(Highcharts => {
+      const chart = Highcharts.charts[0];
+      const xAxis = chart.xAxis[0];
+      const yAxis = chart.yAxis[0];
 
-              let matchFound = false;
-              for (const p of maxPoints) {
-                if (Math.abs(p.plotX + p.series.chart.plotLeft - x) < 30) {
-                  assert.closeTo(
-                    p.plotX + p.series.chart.plotLeft,
-                    x,
-                    30,
-                    "The x-coordinate of the custom xAxis circle should be close to the max point x-coordinate."
-                  );
-                  matchFound = true;
-                  break;
-                }
-              }
+      const x = xAxis.toValue(p1[0]);
+      const y = yAxis.toValue(p1[1]);
 
-              if (!matchFound) {
-                assert.fail("No matching xAxis circles found for the element.");
-              }
-            });
-          });
-      });
+      cy.get('.chart-text').should('contain', `x: ${x.toFixed(2)}, y: ${y.toFixed(2)}`);
+
+      cy.viewport(400, 500);
+
+      const pX = xAxis.toPixels(x);
+      const pY = yAxis.toPixels(y);
+
+      cy.get('.chart-circle')
+        .should('have.attr', 'cx', `${pX}`,)
+        .should('have.attr', 'cy', `${pY}`);
+    });
   });
 });

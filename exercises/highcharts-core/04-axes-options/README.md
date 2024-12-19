@@ -1,4 +1,4 @@
-# Exercise 02 - Axes Options
+# Exercise 04 - Axes Options
 Level: easy ⭐
 
 In this exercise, you will learn how to:

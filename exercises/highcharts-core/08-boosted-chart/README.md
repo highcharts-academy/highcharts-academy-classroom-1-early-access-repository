@@ -1,4 +1,4 @@
-# Exercise 06 - Boosted Chart
+# Exercise 08 - Boosted Chart
 Level: easy ⭐
 
 In this exercise, you will learn how to:

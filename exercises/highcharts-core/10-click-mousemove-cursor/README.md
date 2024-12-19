@@ -1,4 +1,4 @@
-# Exercise 08 - Click Mousemove Cursor
+# Exercise 10 - Click Mousemove Cursor
 Level: advanced ⭐⭐⭐
 
 In this exercise, you will learn how to:

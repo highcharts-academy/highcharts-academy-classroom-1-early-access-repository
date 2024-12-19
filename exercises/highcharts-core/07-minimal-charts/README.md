@@ -1,4 +1,4 @@
-# Exercise 05 - Minimal Charts
+# Exercise 07 - Minimal Charts
 Level: intermediate ⭐⭐
 
 In this exercise, you will learn how to:

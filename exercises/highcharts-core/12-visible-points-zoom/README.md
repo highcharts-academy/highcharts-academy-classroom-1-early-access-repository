@@ -1,4 +1,4 @@
-# Exercise 10 - Visible Points Zoom
+# Exercise 12 - Visible Points Zoom
 Level: advanced ⭐⭐⭐
 
 In this exercise, you will learn how to:

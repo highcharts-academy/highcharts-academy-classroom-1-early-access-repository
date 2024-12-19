@@ -1,31 +1,53 @@
-describe('01-simple-column', () => {
+describe('06-plotLine-plotBand', () => {
   beforeEach('passes', () => {
-		cy.visit('../../../exercises/highcharts-core/06-boosted-chart/index.html');
+    cy.visit('../../../exercises/highcharts-core/06-plotLine-plotBand/index.html');
   });
 
-  it('should check if there is a small scatter series with fewer than 10,000 points and not boosted', () => {
+  // Test to check the number of series
+  it('should check if there are 3 series', () => {
     cy.window().its('Highcharts').then(Highcharts => {
       const chart = Highcharts.charts[0];
-      const scatterSeries = chart.series.filter(series => series.type === 'scatter');
-
-      expect(scatterSeries, "There should be one scatter series").to.have.length(1);
-
-      const smallSeries = scatterSeries.find(series => series.data.length < 10000);
-      expect(smallSeries, "One scatter series should have fewer than 10,000 points").to.exist;
-      expect(smallSeries.boosted, "This series should not be in boost mode").to.be.false;
+      expect(chart.series, "There should be 3 series").to.have.length(3);
     });
   });
 
-  it('should check if there is a large scatter series with at least 10,000 points and boosted', () => {
+  // Test to check if the plotLine is added correctly
+  it('should check if plotLine is added correctly with proper max value', () => {
     cy.window().its('Highcharts').then(Highcharts => {
       const chart = Highcharts.charts[0];
-      const columnSeries = chart.series.filter(series => series.type === 'column');
 
-      expect(columnSeries, "There should be one column series").to.have.length(1);
+      expect(chart.yAxis[0].options.plotLines).to.exist;
 
-      const largeSeries = columnSeries.find(series => series.xData.length >= 10000);
-      expect(largeSeries, "One scatter series should have at least 10,000 points").to.exist;
-      expect(largeSeries.boosted, "This series should be in boost mode").to.be.true;
+      const plotLine = chart.yAxis[0].options.plotLines[0];
+
+      // Check plotLine properties
+      expect(plotLine.dashStyle.toLowerCase()).to.equal('dash');
+      expect(plotLine.value, "PlotLine value should be 1.5x the max value")
+        .to.be.closeTo(chart.yAxis[0].dataMax * 1.5, 0.1);
+
+      // Ensure the plotLine is rendered in the DOM
+      cy.get('#container svg path.highcharts-plot-line').should('exist')
+        .and('have.attr', 'stroke-dasharray');
+    });
+  });
+
+  // Test to check if the plotBand is added correctly with the correct range
+  it('should add plotBand with correct range', () => {
+    cy.window().its('Highcharts').then(Highcharts => {
+      const chart = Highcharts.charts[0];
+
+      expect(chart.yAxis[0].options.plotBands).to.exist;
+
+      const plotBand = chart.yAxis[0].options.plotBands[0];
+
+      // Check plotBand range
+      expect(plotBand.from, "PlotBand 'from' value should be 0.5x the max value")
+        .to.be.closeTo(chart.yAxis[0].dataMax * 0.5, 0.1);
+      expect(plotBand.to, "PlotBand 'to' value should be 1.2x the max value")
+        .to.be.closeTo(chart.yAxis[0].dataMax * 1.2, 0.1);
+
+      // Ensure the plotBand is applied to the chart
+      cy.get('#container').should('exist');
     });
   });
 });
