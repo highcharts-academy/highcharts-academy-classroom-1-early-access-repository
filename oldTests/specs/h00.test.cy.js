@@ -19,7 +19,7 @@ describe("00-initial-chart-tests", () => {
                   series.points[2].y === undefined ||
                   series.points[2].y === null,
                 true,
-                "The third point of the column series should be equal to 0, undefined, or null"
+                "The third point of the column series should be equal to 0, undefined, or null",
               );
             },
           },
@@ -48,24 +48,24 @@ describe("00-initial-chart-tests", () => {
           assert.strictEqual(
             type,
             type,
-            `There's one ${type} series on the chart`
+            `There's one ${type} series on the chart`,
           );
           assert.strictEqual(
             points.length,
             expected.pointsLength,
-            `There are ${expected.pointsLength} points in the ${type} series`
+            `There are ${expected.pointsLength} points in the ${type} series`,
           );
           assert.strictEqual(
             color,
             expected.color,
-            `The ${type} series is ${expected.color}`
+            `The ${type} series is ${expected.color}`,
           );
 
           if (expected.symbol) {
             assert.strictEqual(
               symbol,
               expected.symbol,
-              `The ${type} series symbol is ${expected.symbol}`
+              `The ${type} series symbol is ${expected.symbol}`,
             );
           }
 
@@ -85,23 +85,23 @@ describe("00-initial-chart-tests", () => {
         assert.strictEqual(
           chart.xAxis[0].userOptions.title.text,
           "xAxis title",
-          "xAxis title should be named: xAxis title"
+          "xAxis title should be named: xAxis title",
         );
 
         assert.strictEqual(
           chart.yAxis[0].userOptions.title.text,
           "yAxis title",
-          "yAxis title should be named: yAxis title"
+          "yAxis title should be named: yAxis title",
         );
         assert.strictEqual(
           chart.yAxis[0].userOptions.labels.style.color,
           "#32CD32",
-          "yAxis labels color should be set to green"
+          "yAxis labels color should be set to green",
         );
         assert.strictEqual(
           chart.yAxis[0].userOptions.labels.format,
           "{text} k",
-          'yAxis labels should have "k" at the end'
+          'yAxis labels should have "k" at the end',
         );
       });
   });
@@ -114,38 +114,38 @@ describe("00-initial-chart-tests", () => {
 
         expect(
           chartOptions.title.text,
-          'The chart title should be set to "Highcharts chart"'
+          'The chart title should be set to "Highcharts chart"',
         ).to.equal("Highcharts chart");
         expect(
           chartOptions.title.align,
-          "The chart title should be aligned to the left"
+          "The chart title should be aligned to the left",
         ).to.equal("left");
 
         expect(
           chartOptions.subtitle.text,
-          'The subtitle should be set to "With modified default elements"'
+          'The subtitle should be set to "With modified default elements"',
         ).to.equal("With modified default elements");
         expect(
           chartOptions.subtitle.align,
-          "The subtitle should be aligned to the left"
+          "The subtitle should be aligned to the left",
         ).to.equal("left");
 
         expect(
           chartOptions.legend.align,
-          "The legend should be aligned to the left"
+          "The legend should be aligned to the left",
         ).to.equal("left");
         expect(
           chartOptions.legend.verticalAlign,
-          "The legend should be vertically aligned to the top"
+          "The legend should be vertically aligned to the top",
         ).to.equal("top");
 
         expect(
           chartOptions.credits.text,
-          'The credits text should be set to "Highcharts website"'
+          'The credits text should be set to "Highcharts website"',
         ).to.equal("Highcharts website");
         expect(
           chartOptions.credits.position.align,
-          "The credits should be aligned to the left"
+          "The credits should be aligned to the left",
         ).to.equal("left");
       });
   });
@@ -156,11 +156,11 @@ describe("00-initial-chart-tests", () => {
 
       expect(defaultOptions.colors).to.deep.equal(
         ["#1E90FF", "#32CD32", "#FF4500"],
-        "Colors (blue, green and red) should be set through .setOptions"
+        "Colors (blue, green and red) should be set through .setOptions",
       );
       expect(defaultOptions.symbols).to.deep.equal(
         ["square", "triangle-down", "circle"],
-        "Symbols (square, triangle-down and circle) should be set through .setOptions"
+        "Symbols (square, triangle-down and circle) should be set through .setOptions",
       );
     });
   });

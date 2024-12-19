@@ -1,6 +1,6 @@
 describe("02-axes-options-tests", () => {
   beforeEach("passes", () => {
-		cy.visit('../../../exercises/highcharts-core/04-axes-option/index.html');
+    cy.visit("../../../exercises/highcharts-core/04-axes-option/index.html");
   });
 
   it("should check if axes are set correctly", () => {
@@ -12,23 +12,23 @@ describe("02-axes-options-tests", () => {
         assert.strictEqual(
           chart.xAxis[0].userOptions.title.text,
           "xAxis title",
-          "xAxis title should be named: xAxis title"
+          "xAxis title should be named: xAxis title",
         );
 
         assert.strictEqual(
           chart.yAxis[0].userOptions.title.text,
           "yAxis title",
-          "yAxis title should be named: yAxis title"
+          "yAxis title should be named: yAxis title",
         );
         assert.strictEqual(
           chart.yAxis[0].userOptions.labels.style.color,
           "#32CD32",
-          "yAxis labels color should be set to green"
+          "yAxis labels color should be set to green",
         );
         assert.strictEqual(
           chart.yAxis[0].userOptions.labels.format,
           "{text} k",
-          'yAxis labels should have "k" at the end'
+          'yAxis labels should have "k" at the end',
         );
       });
   });
@@ -41,38 +41,38 @@ describe("02-axes-options-tests", () => {
 
         expect(
           chartOptions.title.text,
-          'The chart title should be set to "Highcharts chart"'
+          'The chart title should be set to "Highcharts chart"',
         ).to.equal("Highcharts chart");
         expect(
           chartOptions.title.align,
-          "The chart title should be aligned to the left"
+          "The chart title should be aligned to the left",
         ).to.equal("left");
 
         expect(
           chartOptions.subtitle.text,
-          'The subtitle should be set to "With modified default elements"'
+          'The subtitle should be set to "With modified default elements"',
         ).to.equal("With modified default elements");
         expect(
           chartOptions.subtitle.align,
-          "The subtitle should be aligned to the left"
+          "The subtitle should be aligned to the left",
         ).to.equal("left");
 
         expect(
           chartOptions.legend.align,
-          "The legend should be aligned to the left"
+          "The legend should be aligned to the left",
         ).to.equal("left");
         expect(
           chartOptions.legend.verticalAlign,
-          "The legend should be vertically aligned to the top"
+          "The legend should be vertically aligned to the top",
         ).to.equal("top");
 
         expect(
           chartOptions.credits.text,
-          'The credits text should be set to "Highcharts website"'
+          'The credits text should be set to "Highcharts website"',
         ).to.equal("Highcharts website");
         expect(
           chartOptions.credits.position.align,
-          "The credits should be aligned to the left"
+          "The credits should be aligned to the left",
         ).to.equal("left");
       });
   });

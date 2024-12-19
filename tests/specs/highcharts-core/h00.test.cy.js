@@ -1,6 +1,8 @@
 describe("00-getting-started-tests", () => {
   beforeEach("passes", () => {
-    cy.visit('../../../exercises/highcharts-core/00-getting-started/index.html');
+    cy.visit(
+      "../../../exercises/highcharts-core/00-getting-started/index.html",
+    );
   });
 
   it("should check if the chart is a column chart", () => {
@@ -12,7 +14,7 @@ describe("00-getting-started-tests", () => {
         assert.strictEqual(
           chart.options.chart.type,
           "column",
-          "The chart type should be column"
+          "The chart type should be column",
         );
       });
   });
@@ -26,7 +28,7 @@ describe("00-getting-started-tests", () => {
 
         expect(seriesData).to.deep.equal(
           [1, 2, 3, 1.5, 0.4],
-          "The series data should match [1, 2, 3, 1.5, 0.4]"
+          "The series data should match [1, 2, 3, 1.5, 0.4]",
         );
       });
   });
@@ -52,21 +54,26 @@ describe("00-getting-started-tests", () => {
         const chart = Highcharts.charts[0];
         const annotation = chart.annotations[0].userOptions.labels[0];
 
-        expect(annotation.point.x).to.equal(2, "Annotation x point should be 2");
-        expect(annotation.point.y).to.equal(3, "Annotation y point should be 3");
+        expect(annotation.point.x).to.equal(
+          2,
+          "Annotation x point should be 2",
+        );
+        expect(annotation.point.y).to.equal(
+          3,
+          "Annotation y point should be 3",
+        );
         expect(annotation.point.xAxis).to.equal(
           0,
-          "Annotation xAxis should be 0"
+          "Annotation xAxis should be 0",
         );
         expect(annotation.point.yAxis).to.equal(
           0,
-          "Annotation yAxis should be 0"
+          "Annotation yAxis should be 0",
         );
         expect(annotation.text).to.equal(
           "Middle point",
-          "Annotation text should be 'Middle point'"
+          "Annotation text should be 'Middle point'",
         );
       });
   });
 });
-

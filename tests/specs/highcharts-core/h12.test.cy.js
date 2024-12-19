@@ -1,6 +1,8 @@
 describe("Line Chart Exercise", () => {
   beforeEach("passes", () => {
-		cy.visit('../../../exercises/highcharts-core/12-visible-points-zoom/index.html');
+    cy.visit(
+      "../../../exercises/highcharts-core/12-visible-points-zoom/index.html",
+    );
   });
 
   it('should check if the chart has 100 random integer values and "xy" zoom', () => {
@@ -11,11 +13,11 @@ describe("Line Chart Exercise", () => {
         const series = chart.series[0];
 
         expect(series.data.length, "Series should have 100 points").to.equal(
-          100
+          100,
         );
         expect(
           chart.options.chart.zoomType,
-          "Zoom type should be 'xy'"
+          "Zoom type should be 'xy'",
         ).to.equal("xy");
       });
   });
@@ -38,7 +40,7 @@ describe("Line Chart Exercise", () => {
                 `Visible points: ${
                   chart.series[0].points.filter((point) => point.isInside)
                     .length
-                }`
+                }`,
               );
           });
       });
@@ -74,13 +76,13 @@ describe("Line Chart Exercise", () => {
                       p.plotX + p.series.chart.plotLeft,
                       x,
                       30,
-                      "The x-coordinate of the custom max point label should be close to the max point x-coordinate."
+                      "The x-coordinate of the custom max point label should be close to the max point x-coordinate.",
                     );
                     assert.closeTo(
                       p.plotY + p.series.chart.plotTop,
                       y,
                       30,
-                      "The y-coordinate of the custom max point label should be close to the max point y-coordinate."
+                      "The y-coordinate of the custom max point label should be close to the max point y-coordinate.",
                     );
                     matchFound = true;
                     break;
@@ -108,7 +110,7 @@ describe("Line Chart Exercise", () => {
                     p.plotX + p.series.chart.plotLeft,
                     x,
                     30,
-                    "The x-coordinate of the custom xAxis circle should be close to the max point x-coordinate."
+                    "The x-coordinate of the custom xAxis circle should be close to the max point x-coordinate.",
                   );
                   matchFound = true;
                   break;

@@ -1,6 +1,8 @@
 describe("01-global-defaults-tests", () => {
   beforeEach("visit the exercise page", () => {
-    cy.visit('../../../exercises/highcharts-core/01-global-defaults/index.html');
+    cy.visit(
+      "../../../exercises/highcharts-core/01-global-defaults/index.html",
+    );
   });
 
   it("should check if default colors and symbols were set by Highcharts.setOptions", () => {
@@ -10,13 +12,13 @@ describe("01-global-defaults-tests", () => {
       // Check the default colors
       expect(defaultOptions.colors).to.deep.equal(
         ["#1E90FF", "#32CD32", "#FF4500"],
-        "Colors (blue, green, and red) should be set through Highcharts.setOptions"
+        "Colors (blue, green, and red) should be set through Highcharts.setOptions",
       );
 
       // Check the default symbols
       expect(defaultOptions.symbols).to.deep.equal(
         ["square", "triangle-down", "circle"],
-        "Symbols (square, triangle-down, and circle) should be set through Highcharts.setOptions"
+        "Symbols (square, triangle-down, and circle) should be set through Highcharts.setOptions",
       );
     });
   });
@@ -41,14 +43,14 @@ describe("01-global-defaults-tests", () => {
           // Check series color
           expect(seriesColor).to.equal(
             expectedColors[index],
-            `Series ${index + 1} should have the correct default color`
+            `Series ${index + 1} should have the correct default color`,
           );
 
           // Check series symbol (if applicable)
           if (seriesSymbol) {
             expect(seriesSymbol).to.equal(
               expectedSymbols[index],
-              `Series ${index + 1} should have the correct default symbol`
+              `Series ${index + 1} should have the correct default symbol`,
             );
           }
         });

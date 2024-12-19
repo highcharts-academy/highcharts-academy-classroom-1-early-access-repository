@@ -1,7 +1,8 @@
-
 describe("08-accessible-chart-tests", () => {
   beforeEach("passes", () => {
-    cy.visit("../../exercises/highcharts-accessibility/01-accessible-chart-options/index.html");
+    cy.visit(
+      "../../exercises/highcharts-accessibility/01-accessible-chart-options/index.html",
+    );
   });
 
   it("should check if Accessibility module is loaded", () => {
@@ -24,25 +25,25 @@ describe("08-accessible-chart-tests", () => {
 
         expect(
           chartOptions.title.text,
-          'The chart title should be set to "Highcharts chart"'
+          'The chart title should be set to "Highcharts chart"',
         ).to.equal("Monthly Sales Data");
 
         expect(
           chartOptions.subtitle.text,
-          'The subtitle should be set to "Per category"'
+          'The subtitle should be set to "Per category"',
         ).to.equal("Per category");
 
         expect(chartOptions.xAxis[0].categories).to.deep.equal(
           ["January", "February", "March", "April", "May"],
-          "The x-axis categories should be set to ['January', 'February', 'March', 'April', 'May']"
+          "The x-axis categories should be set to ['January', 'February', 'March', 'April', 'May']",
         );
 
         expect(
           chartOptions.yAxis[0].title.text,
-          'The y-axis title should be set to "Sales (in USD)"'
+          'The y-axis title should be set to "Sales (in USD)"',
         ).to.equal("Sales (in USD)");
       });
-  })
+  });
 
   it("Should check if the series has a name", () => {
     cy.window()
@@ -52,15 +53,15 @@ describe("08-accessible-chart-tests", () => {
 
         expect(
           chart.series[0].name,
-          'The series name should be "Phones"'
+          'The series name should be "Phones"',
         ).to.equal("Phones");
 
         expect(
           chart.series[1].name,
-          'The series name should be "Tablets"'
+          'The series name should be "Tablets"',
         ).to.equal("Tablets");
       });
-  })
+  });
 
   it("Should check if tooltip has correct suffix and if it is sticky", () => {
     cy.window()
@@ -72,26 +73,26 @@ describe("08-accessible-chart-tests", () => {
 
         expect(
           tooltip.valueSuffix,
-          'The tooltip value suffix should be set to " USD"'
+          'The tooltip value suffix should be set to " USD"',
         ).to.equal(" USD");
 
-        expect(
-          tooltip.stickOnContact, 
-          "The tooltip should be sticky"
-        ).to.be.true;
-
+        expect(tooltip.stickOnContact, "The tooltip should be sticky").to.be
+          .true;
       });
-  })
+  });
 
   it("Chart should have a description element with text content.", () => {
     cy.window()
       .its("Highcharts")
       .then((Highcharts) => {
         const chart = Highcharts.charts[0];
-        const descriptionText = chart.accessibility.components.infoRegions.linkedDescriptionElement.textContent;
+        const descriptionText =
+          chart.accessibility.components.infoRegions.linkedDescriptionElement
+            .textContent;
         cy.get(".highcharts-description").then((desc) => {
-          expect(desc,
-            'Chart should have a <p> element with the correct classname'
+          expect(
+            desc,
+            "Chart should have a <p> element with the correct classname",
           ).to.exist;
         });
 
@@ -101,6 +102,4 @@ describe("08-accessible-chart-tests", () => {
         ).to.not.be.empty;
       });
   });
-
-
 });
