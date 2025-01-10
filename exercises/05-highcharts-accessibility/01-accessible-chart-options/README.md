@@ -14,7 +14,10 @@ In this task, you will create an interactive Highcharts chart with default value
 
 ![exercise.png](exercise.png)
 
-## Instructions:
+## Instructions
+
+0. **Good to know**
+- To run the test, use the following command: `npm run test-01-a11y`
 
 1. **Include Accessibility Module**
 
