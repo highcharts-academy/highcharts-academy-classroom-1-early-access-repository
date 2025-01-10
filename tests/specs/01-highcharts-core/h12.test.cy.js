@@ -1,6 +1,8 @@
 describe("Line Chart Exercise", () => {
   beforeEach("passes", () => {
-		cy.visit('../../../exercises/highcharts-core/12-visible-points-zoom/index.html');
+    cy.visit(
+      "../../../exercises/01-highcharts-core/12-visible-points-zoom/index.html"
+    );
   });
 
   it('should check if the chart has 100 random integer values and "xy" zoom', () => {

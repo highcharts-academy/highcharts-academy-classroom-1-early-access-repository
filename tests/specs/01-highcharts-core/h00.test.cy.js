@@ -1,6 +1,8 @@
 describe("00-getting-started-tests", () => {
   beforeEach("passes", () => {
-    cy.visit('../../../exercises/highcharts-core/00-getting-started/index.html');
+    cy.visit(
+      "../../../exercises/01-highcharts-core/00-getting-started/index.html"
+    );
   });
 
   it("should check if the chart is a column chart", () => {
@@ -52,8 +54,14 @@ describe("00-getting-started-tests", () => {
         const chart = Highcharts.charts[0];
         const annotation = chart.annotations[0].userOptions.labels[0];
 
-        expect(annotation.point.x).to.equal(2, "Annotation x point should be 2");
-        expect(annotation.point.y).to.equal(3, "Annotation y point should be 3");
+        expect(annotation.point.x).to.equal(
+          2,
+          "Annotation x point should be 2"
+        );
+        expect(annotation.point.y).to.equal(
+          3,
+          "Annotation y point should be 3"
+        );
         expect(annotation.point.xAxis).to.equal(
           0,
           "Annotation xAxis should be 0"
@@ -69,4 +77,3 @@ describe("00-getting-started-tests", () => {
       });
   });
 });
-

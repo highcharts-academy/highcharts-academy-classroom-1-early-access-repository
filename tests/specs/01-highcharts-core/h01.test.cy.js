@@ -1,6 +1,8 @@
 describe("01-global-defaults-tests", () => {
   beforeEach("visit the exercise page", () => {
-    cy.visit('../../../exercises/highcharts-core/01-global-defaults/index.html');
+    cy.visit(
+      "../../../exercises/01-highcharts-core/01-global-defaults/index.html"
+    );
   });
 
   it("should check if default colors and symbols were set by Highcharts.setOptions", () => {

@@ -1,7 +1,8 @@
-
 describe("08-accessible-chart-tests", () => {
   beforeEach("passes", () => {
-    cy.visit("../../exercises/highcharts-accessibility/01-accessible-chart-options/index.html");
+    cy.visit(
+      "../../exercises/05-highcharts-accessibility/01-accessible-chart-options/index.html"
+    );
   });
 
   it("should check if Accessibility module is loaded", () => {
@@ -42,7 +43,7 @@ describe("08-accessible-chart-tests", () => {
           'The y-axis title should be set to "Sales (in USD)"'
         ).to.equal("Sales (in USD)");
       });
-  })
+  });
 
   it("Should check if the series has a name", () => {
     cy.window()
@@ -60,7 +61,7 @@ describe("08-accessible-chart-tests", () => {
           'The series name should be "Tablets"'
         ).to.equal("Tablets");
       });
-  })
+  });
 
   it("Should check if tooltip has correct suffix and if it is sticky", () => {
     cy.window()
@@ -75,32 +76,30 @@ describe("08-accessible-chart-tests", () => {
           'The tooltip value suffix should be set to " USD"'
         ).to.equal(" USD");
 
-        expect(
-          tooltip.stickOnContact, 
-          "The tooltip should be sticky"
-        ).to.be.true;
-
+        expect(tooltip.stickOnContact, "The tooltip should be sticky").to.be
+          .true;
       });
-  })
+  });
 
   it("Chart should have a description element with text content.", () => {
     cy.window()
       .its("Highcharts")
       .then((Highcharts) => {
         const chart = Highcharts.charts[0];
-        const descriptionText = chart.accessibility.components.infoRegions.linkedDescriptionElement.textContent;
+        const descriptionText =
+          chart.accessibility.components.infoRegions.linkedDescriptionElement
+            .textContent;
         cy.get(".highcharts-description").then((desc) => {
-          expect(desc,
-            'Chart should have a <p> element with the correct classname'
+          expect(
+            desc,
+            "Chart should have a <p> element with the correct classname"
           ).to.exist;
         });
 
         expect(
           descriptionText,
-          "The description text should be set to have content",
+          "The description text should be set to have content"
         ).to.not.be.empty;
       });
   });
-
-
 });

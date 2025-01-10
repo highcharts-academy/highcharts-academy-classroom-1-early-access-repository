@@ -1,6 +1,6 @@
 describe("02-axes-options-tests", () => {
   beforeEach("passes", () => {
-		cy.visit('../../../exercises/highcharts-core/04-axes-option/index.html');
+    cy.visit("../../../exercises/01-highcharts-core/04-axes-option/index.html");
   });
 
   it("should check if axes are set correctly", () => {
