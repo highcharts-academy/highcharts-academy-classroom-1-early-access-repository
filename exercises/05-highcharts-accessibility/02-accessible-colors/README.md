@@ -9,6 +9,10 @@ In this task, you will take a look at the column color contrast against the back
 ![exercise.png](exercise.png)
 
 ## Instructions:
+0. **Good to know**
+* To run the test, use the following command: `npm run test-02-a11y`
+
+  
 1. **Include Accessibility Module**
 * Objective
   * Ensure that the "accessibility" module are correctly loaded.
