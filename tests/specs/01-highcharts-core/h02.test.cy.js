@@ -24,7 +24,7 @@ describe("02-create-series-tests", () => {
         expect(
           columnDataValues,
           "Column series data should match expected values"
-        ).to.deep.eq([1, 6, null, 3, 2]);
+        ).to.deep.eq([2, 2, null, 4, 5]);
       });
   });
 

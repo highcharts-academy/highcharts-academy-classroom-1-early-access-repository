@@ -36,13 +36,13 @@ Highcharts.chart("container", {
   },
   series: [
     {
-      data: [1, 1, 1, 1, 1],
+      data: [1, 1, null, 1, 1],
     },
     {
-      data: [2, 2, 2],
+      data: [3, 4, 1, 0, 0, 0],
     },
     {
-      data: [3, 3, 3, 3, 3],
+      data: [1.5, 5, 2, 3],
     },
   ],
 });

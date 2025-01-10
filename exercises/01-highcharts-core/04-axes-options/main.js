@@ -7,7 +7,8 @@ Highcharts.chart("container", {
 
   series: [
     {
-      data: [2, 6, 4, 7, 9, 3],
+      type: "column",
+      data: [2, 2, null, 4, 5],
     },
   ],
 });

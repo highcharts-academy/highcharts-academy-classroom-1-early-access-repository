@@ -1,4 +1,4 @@
-describe("02-axes-options-tests", () => {
+describe("04-axes-options-tests", () => {
   beforeEach("passes", () => {
     cy.visit("../../../exercises/01-highcharts-core/04-axes-option/index.html");
   });
