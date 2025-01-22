@@ -9,6 +9,9 @@ Remember to carefully follow the guidelines in the `README.md` files for each ta
 
 **Good luck!** 😊
 
+[![Watch the video](images/highcharts-intro-video.png)](https://www.youtube.com/watch?v=H7-HKx5qR30)
+
+
 ---
 
 ## Prerequisites
