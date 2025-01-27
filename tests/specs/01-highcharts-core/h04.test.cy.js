@@ -1,6 +1,9 @@
 describe("04-axes-options-tests", () => {
   beforeEach("passes", () => {
-    cy.visit("../../../exercises/01-highcharts-core/04-axes-option/index.html");
+    cy.visit(
+      "../../../exercises/01-highcharts-core/04-axes-options/index.html"
+    );
+    cy.window().its("Highcharts.charts").should("have.length.greaterThan", 0); // Wait until the chart exists
   });
 
   it("should check if axes are set correctly", () => {
@@ -8,26 +11,28 @@ describe("04-axes-options-tests", () => {
       .its("Highcharts")
       .then((Highcharts) => {
         const chart = Highcharts.charts[0];
+        assert.isDefined(chart, "The chart should be initialized");
 
+        // Assertions for axes
         assert.strictEqual(
-          chart.xAxis[0].userOptions.title.text,
+          chart.xAxis[0].options.title.text,
           "xAxis title",
           "xAxis title should be named: xAxis title"
         );
 
         assert.strictEqual(
-          chart.yAxis[0].userOptions.title.text,
+          chart.yAxis[0].options.title.text,
           "yAxis title",
           "yAxis title should be named: yAxis title"
         );
         assert.strictEqual(
-          chart.yAxis[0].userOptions.labels.style.color,
+          chart.yAxis[0].options.labels.style.color,
           "#32CD32",
           "yAxis labels color should be set to green"
         );
         assert.strictEqual(
-          chart.yAxis[0].userOptions.labels.format,
-          "{text} k",
+          chart.yAxis[0].options.labels.format,
+          "{value} k",
           'yAxis labels should have "k" at the end'
         );
       });
@@ -37,7 +42,7 @@ describe("04-axes-options-tests", () => {
     cy.window()
       .its("Highcharts")
       .then((Highcharts) => {
-        const chartOptions = Highcharts.charts[0].userOptions;
+        const chartOptions = Highcharts.charts[0].options;
 
         expect(
           chartOptions.title.text,
