@@ -10,7 +10,7 @@ In this exercise, you will learn how to:
 
 In this task, you'll create a simple column chart and use the load event to set dynamic options when the chart is initially loaded.
 
-![exercise.png](exercise.png)
+![exercise.png](image/exercise.png)
 
 ## Instructions
 
