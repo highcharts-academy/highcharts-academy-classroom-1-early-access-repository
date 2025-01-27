@@ -13,6 +13,8 @@ By completing this exercise, you'll learn how to:
 3. View your results.
 4. Run automated tests to validate your work.
 
+[![Watch the video](image/exercise-00-getting-started-with-highcharts-academy.png)](https://youtu.be/B9p4LIipwU4)
+
 ---
 
 ## Let’s Get Started  
