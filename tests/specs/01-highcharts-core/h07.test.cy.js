@@ -1,5 +1,5 @@
 describe("07-minimal-charts", () => {
-  beforeEach(() => {
+  beforeEach("passes", () => {
     cy.visit(
       "../../../exercises/01-highcharts-core/07-minimal-charts/index.html"
     );
