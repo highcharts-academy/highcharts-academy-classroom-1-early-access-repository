@@ -11,7 +11,7 @@ Highcharts.chart("container", {
   },
   series: [
     {
-      type: "column",
+      type: "area",
       data: [1, 2, 3, 4],
     },
     {
