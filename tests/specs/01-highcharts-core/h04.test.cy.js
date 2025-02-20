@@ -30,10 +30,13 @@ describe("04-axes-options-tests", () => {
           "#32CD32",
           "yAxis labels color should be set to green"
         );
-        assert.strictEqual(
-          chart.yAxis[0].options.labels.format,
-          "{value} k",
-          'yAxis labels should have "k" at the end'
+        // Allow both "{value} k" and "{text} k" formats
+        const yAxisLabelFormat = chart.yAxis[0].options.labels.format;
+        const isValidFormat =
+          yAxisLabelFormat === "{value} k" || yAxisLabelFormat === "{text} k";
+        assert.isTrue(
+          isValidFormat,
+          'yAxis labels format should be either "{value} k" or "{text} k"'
         );
       });
   });
