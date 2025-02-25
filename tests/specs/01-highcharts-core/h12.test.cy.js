@@ -52,7 +52,7 @@ describe("Line Chart Exercise", () => {
       .then((Highcharts) => {
         const chart = Highcharts.charts[0];
         const series = chart.series[0];
-        const dataMax = Math.max(...series.yData);
+        const dataMax = Math.max(...series.points.map((point) => point.y));
         const maxPoints = series.points.filter((point) => point.y === dataMax);
 
         cy.get(".highcharts-root")
