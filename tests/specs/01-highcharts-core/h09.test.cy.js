@@ -112,7 +112,7 @@ describe("template spec", () => {
           }
 
           expect(
-            mock.yData,
+            mock.points.map((point) => point.y),
             `Every point in the ${side} mock series should be 100`
           ).to.deep.equal([100, 100, 100, 100, 100]);
 
