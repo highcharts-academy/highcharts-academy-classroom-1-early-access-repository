@@ -6,8 +6,15 @@
     "vscode": {
       "extensions": [
         "ms-vscode-remote.remote-containers"
-      ]
+      ],
+      "settings": {
+        "markdown.preview.autoShowPreviewToSide": true,
+        "workbench.editorAssociations": {
+          "*.md": "vscode.markdown.preview.editor"
+        }
+      }
     }
   }
 }
+
 
