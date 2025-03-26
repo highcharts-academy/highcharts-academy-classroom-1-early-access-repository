@@ -123,3 +123,18 @@ Once you have completed all tasks and ensured all tests pass:
     ```
 
 Replace `main` with your branch name if you're working on a different branch.
+
+
+---
+
+### Run Highcharts Academy online 
+Did you know you can learn Highcharts Academy online by running tests, modifying the code, and instantly seeing the changes in HTML?
+Here’s how to get started (see video below
+1. Copy your Highcharts Academy link.
+2. Open it in your browser.
+3. Replace .com with .dev to launch Codespaces.
+4. Install live-server.
+5. Run it to start seeing your changes in real time 🙂
+
+[![Watch the video](images/highcharts-intro-video.png)](https://youtu.be/hvWdx_VVP5Y)
+
